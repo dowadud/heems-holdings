@@ -11,7 +11,9 @@ export const siteConfig = {
   
   // CTA Configuration
   ctaPrimaryHref: "mailto:info@heemsholdings.com?subject=Investment Inquiry",
+  ctaPrimaryText: "Get Started Today",
   ctaSecondaryHref: "tel:+15551234567",
+  ctaSecondaryText: "Schedule a Call",
   contactEmail: "info@heemsholdings.com",
   contactPhone: "+1 (555) 123-4567",
   
