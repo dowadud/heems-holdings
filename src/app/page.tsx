@@ -1,80 +1,124 @@
 'use client'
 
-import { motion, useScroll, useTransform } from 'framer-motion'
-import { StatCard } from '@/components/StatCard'
-import { CTA } from '@/components/CTA'
+import { motion } from 'framer-motion'
 import { Button } from '@/components/Button'
 import { siteConfig } from '@/config/site'
-import { useRef, useState } from 'react'
 
 export default function HomePage() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll()
-  
-  // Parallax transforms for sticky panels
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -50])
-  const y2 = useTransform(scrollYProgress, [0, 1], [0, -100])
-  const y3 = useTransform(scrollYProgress, [0, 1], [0, -75])
-
   return (
-    <div ref={containerRef} className="min-h-screen bg-brand-coal">
-      {/* HERO Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        {/* Badge */}
-        <div className="absolute top-8 left-8 z-20 bg-brand-gold/20 text-brand-gold px-4 py-2 rounded-full text-sm font-semibold">
-          Heems Holdings
+    <div className="min-h-screen bg-brand-coal">
+      {/* Navigation */}
+      <nav className="fixed top-0 w-full z-50 bg-brand-coal/95 backdrop-blur-sm border-b border-brand-gold/10">
+        <div className="container mx-auto px-6 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-brand-gold rounded-full"></div>
+              <span className="font-serif text-xl font-bold text-brand-cream">Heems Holdings</span>
+            </div>
+            <div className="hidden md:flex items-center space-x-8">
+              <a href="#" className="text-brand-cream hover:text-brand-gold transition-colors">The Firm</a>
+              <a href="#strategies" className="text-brand-cream hover:text-brand-gold transition-colors">What We Do</a>
+              <a href="#insights" className="text-brand-cream hover:text-brand-gold transition-colors">Insights</a>
+              <a href="#contact" className="text-brand-cream hover:text-brand-gold transition-colors">Contact</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* HERO Section - Blackstone Style */}
+      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-brand-navy via-brand-coal to-brand-green">
+        <div className="absolute inset-0 opacity-20">
+          <div className="w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(198,161,91,0.1)_1px,transparent_1px)] bg-[length:60px_60px]"></div>
         </div>
         
-        {/* Background Video */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="/videos/hero.mp4" type="video/mp4" />
-        </video>
-        
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-navy/60 via-brand-coal/40 to-brand-green/60" />
-        
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="relative z-10 text-center text-brand-cream px-6 max-w-4xl"
-        >
-          {/* TODO(Nadhir): replace hero copy */}
-          <h1 className="font-serif text-6xl md:text-8xl font-bold mb-6 text-brand-cream">
-            Real Estate
-          </h1>
-          <p className="text-xl md:text-2xl mb-12 max-w-2xl mx-auto text-brand-cream/90 leading-relaxed">
-            Disciplined investment strategy focused on premium properties and sustainable long-term growth across high-value markets.
-          </p>
-          <Button size="lg" variant="solid" color="gold">
-            Explore Opportunities
-          </Button>
-        </motion.div>
+        <div className="relative z-10 text-center text-brand-cream px-6 max-w-5xl mx-auto pt-20">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.2, ease: "easeOut" }}
+          >
+            <h1 className="font-serif text-5xl md:text-7xl font-bold mb-8 text-brand-cream">
+              Real Estate
+            </h1>
+            <p className="text-xl md:text-2xl mb-16 max-w-3xl mx-auto text-brand-cream/90 leading-relaxed">
+              We are a global leader in real estate investing. We seek to utilize our expertise and presence to generate attractive returns for our investors in any environment.
+            </p>
+            
+            {/* Hero Stats - Blackstone Style */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto mb-16">
+              <div className="text-center">
+                <h3 className="text-sm uppercase tracking-wider text-brand-gold mb-2">Investor Capital Under Management</h3>
+                <p className="text-4xl md:text-5xl font-bold text-brand-cream">$325B</p>
+              </div>
+              <div className="text-center">
+                <h3 className="text-sm uppercase tracking-wider text-brand-gold mb-2">Value of Global Real Estate Portfolio</h3>
+                <p className="text-4xl md:text-5xl font-bold text-brand-cream">$611B</p>
+              </div>
+            </div>
+            
+            <Button size="lg" variant="solid" color="gold">
+              Explore Opportunities
+            </Button>
+          </motion.div>
+        </div>
       </section>
 
-      {/* STATS Section */}
-      <section className="py-24 bg-brand-coal">
+      {/* WHAT WE DO Section - Blackstone Style */}
+      <section id="strategies" className="py-24 bg-brand-cream text-brand-coal">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto"
+            className="text-center mb-16"
           >
-            <StatCard value={356} suffix="B+" label="Assets Under Management" />
-            <StatCard value={240} suffix="+" label="Properties Managed" />
-            <StatCard value={35} suffix="+" label="Years Experience" />
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">WHAT WE DO</h2>
+            <h3 className="text-2xl md:text-3xl font-medium max-w-4xl mx-auto leading-relaxed">
+              We invest thematically in high-quality assets, focusing where we see outsized growth potential driven by global economic and demographic trends.
+            </h3>
           </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="text-center"
+            >
+              <h4 className="text-xl font-bold mb-4 text-brand-navy">Conviction</h4>
+              <p className="text-brand-coal/80 leading-relaxed">
+                Our vast portfolio provides us with proprietary information across every major real estate asset class, allowing us to identify themes and invest capital with conviction.
+              </p>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-center"
+            >
+              <h4 className="text-xl font-bold mb-4 text-brand-navy">Connectivity</h4>
+              <p className="text-brand-coal/80 leading-relaxed">
+                Our team operates as one globally integrated business, allowing us to identify opportunities through one investment review process.
+              </p>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-center"
+            >
+              <h4 className="text-xl font-bold mb-4 text-brand-navy">Scale</h4>
+              <p className="text-brand-coal/80 leading-relaxed">
+                The breadth of our portfolio gives us differentiated perspectives, while our significant capital base enables us to execute large transactions.
+              </p>
+            </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* STICKY PANELS Section */}
+      {/* OUR STRATEGIES Section - Blackstone Style */}
       <section className="py-24 bg-brand-coal">
         <div className="container mx-auto px-6">
           <motion.div
@@ -83,64 +127,167 @@ export default function HomePage() {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <div className="text-sm font-semibold text-brand-gold uppercase tracking-wider mb-4">
-              Our Expertise
-            </div>
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-brand-cream mb-6">
-              Specialized Sectors
-            </h2>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-brand-cream mb-8">OUR STRATEGIES</h2>
+            <h3 className="text-2xl md:text-3xl font-medium text-brand-cream/90 max-w-4xl mx-auto leading-relaxed">
+              We have invested successfully through all market cycles and across the entire risk spectrum.
+            </h3>
+            <p className="text-lg text-brand-cream/70 max-w-5xl mx-auto mt-6 leading-relaxed">
+              Since we started investing in real estate in 1991, the growth of our business across both products and geographies has expanded our ability to provide practical and diverse solutions to our limited partners.
+            </p>
           </motion.div>
           
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* TODO(Nadhir): update sector titles and links */}
-            {[
-              { title: "Logistics", image: "/images/panel-1.jpg", transform: y1 },
-              { title: "Residential", image: "/images/panel-2.jpg", transform: y2 },
-              { title: "Hospitality", image: "/images/panel-3.jpg", transform: y3 }
-            ].map((panel, index) => (
-              <motion.div
-                key={panel.title}
-                style={{ y: panel.transform }}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="relative h-96 rounded-2xl overflow-hidden group cursor-pointer"
-              >
-                <img
-                  src={panel.image}
-                  alt={panel.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-brand-coal/80 via-transparent to-transparent" />
-                <div className="absolute bottom-6 left-6">
-                  <h3 className="font-serif text-2xl font-bold text-brand-cream">
-                    {panel.title}
-                  </h3>
-                </div>
-              </motion.div>
-            ))}
+            {/* Opportunistic Strategy */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="bg-brand-navy/20 border border-brand-gold/20 rounded-2xl p-8 hover:bg-brand-navy/30 transition-colors"
+            >
+              <h4 className="text-2xl font-bold text-brand-gold mb-6">Opportunistic</h4>
+              <p className="text-brand-cream/80 leading-relaxed">
+                Our opportunistic business seeks to acquire undermanaged, well-located assets across the world. We build businesses that are set up to manage the underlying properties and ultimately maximize their value by instituting best-in-class management.
+              </p>
+            </motion.div>
+
+            {/* Core+ Strategy */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="bg-brand-navy/20 border border-brand-gold/20 rounded-2xl p-8 hover:bg-brand-navy/30 transition-colors"
+            >
+              <h4 className="text-2xl font-bold text-brand-gold mb-6">Core+</h4>
+              <p className="text-brand-cream/80 leading-relaxed">
+                Our Core+ business features stabilized real estate with a long investment horizon and moderate leverage, where we can unlock additional value through focused asset management. We focus on logistics, residential, office, and retail assets in global gateway cities.
+              </p>
+            </motion.div>
+
+            {/* Debt Strategy */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="bg-brand-navy/20 border border-brand-gold/20 rounded-2xl p-8 hover:bg-brand-navy/30 transition-colors"
+            >
+              <h4 className="text-2xl font-bold text-brand-gold mb-6">Debt</h4>
+              <p className="text-brand-cream/80 leading-relaxed">
+                Our real estate debt business provides creative and comprehensive financing solutions across the capital structure and risk spectrum. We originate loans and invest in debt securities underpinned by high-quality real estate.
+              </p>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* QUOTE BAND Section */}
-      <section className="py-16 bg-brand-navy">
+      {/* LEADERSHIP QUOTES Section - Blackstone Style */}
+      <section className="py-24 bg-brand-navy">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-center"
+            >
+              <div className="w-24 h-24 bg-brand-gold/20 rounded-full mx-auto mb-6 flex items-center justify-center">
+                <div className="w-16 h-16 bg-brand-gold rounded-full"></div>
+              </div>
+              <blockquote className="text-xl md:text-2xl font-medium text-brand-cream mb-6 leading-relaxed">
+                &ldquo;Our job is to see megatrends before they emerge and invest in the real estate assets that will benefit from the ways the world is changing.&rdquo;
+              </blockquote>
+              <cite className="text-brand-gold font-semibold">
+                Nadhem Meghji<br />
+                <span className="text-brand-cream/70 text-sm">Global Co-Head of Real Estate</span>
+              </cite>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-center"
+            >
+              <div className="w-24 h-24 bg-brand-gold/20 rounded-full mx-auto mb-6 flex items-center justify-center">
+                <div className="w-16 h-16 bg-brand-gold rounded-full"></div>
+              </div>
+              <blockquote className="text-xl md:text-2xl font-medium text-brand-cream mb-6 leading-relaxed">
+                &ldquo;We are high-conviction, thematic investors. We outperform by concentrating our capital in our best ideas.&rdquo;
+              </blockquote>
+              <cite className="text-brand-gold font-semibold">
+                Kathleen McCarthy<br />
+                <span className="text-brand-cream/70 text-sm">Global Co-Head of Real Estate</span>
+              </cite>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* NEWS & INSIGHTS Section - Blackstone Style */}
+      <section id="insights" className="py-24 bg-brand-cream text-brand-coal">
         <div className="container mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center max-w-4xl mx-auto"
+            className="text-center mb-16"
           >
-            <blockquote className="font-serif text-2xl md:text-3xl font-light text-brand-cream leading-relaxed">
-              <span className="text-brand-gold font-bold">—</span>
-              {" "}We believe in the power of strategic real estate investment to create lasting value and meaningful impact across communities.
-            </blockquote>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">News & Insights</h2>
+            <p className="text-xl text-brand-coal/70 max-w-3xl mx-auto">Updates from Real Estate</p>
           </motion.div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <motion.article
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+            >
+              <div className="h-48 bg-gradient-to-br from-brand-navy to-brand-green"></div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-3 text-brand-navy">Evolving to Outperform</h3>
+                <p className="text-brand-coal/70 leading-relaxed mb-4">
+                  Global Co-Head of Real Estate discusses the asset types, geographies, and capital sources driving performance and growth across the industry.
+                </p>
+                <a href="#" className="text-brand-gold font-semibold hover:underline">Read More</a>
+              </div>
+            </motion.article>
+            
+            <motion.article
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+            >
+              <div className="h-48 bg-gradient-to-br from-brand-green to-brand-gold"></div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-3 text-brand-navy">The Real Estate Recovery</h3>
+                <p className="text-brand-coal/70 leading-relaxed mb-4">
+                  Why we believe commercial real estate is on the path to recovery and the signs giving Heems Holdings confidence in the sector.
+                </p>
+                <a href="#" className="text-brand-gold font-semibold hover:underline">Watch Video</a>
+              </div>
+            </motion.article>
+            
+            <motion.article
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
+            >
+              <div className="h-48 bg-gradient-to-br from-brand-gold to-brand-navy"></div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-3 text-brand-navy">Market Opportunities</h3>
+                <p className="text-brand-coal/70 leading-relaxed mb-4">
+                  Reflecting on current market conditions and what&apos;s ahead for the real estate investment landscape in emerging markets.
+                </p>
+                <a href="#" className="text-brand-gold font-semibold hover:underline">Watch Video</a>
+              </div>
+            </motion.article>
+          </div>
         </div>
       </section>
 
-      {/* HORIZONTAL GALLERY Section */}
+      {/* CAREER OPPORTUNITIES Section - Blackstone Style */}
       <section className="py-24 bg-brand-coal">
         <div className="container mx-auto px-6">
           <motion.div
@@ -149,165 +296,127 @@ export default function HomePage() {
             transition={{ duration: 0.8 }}
             className="text-center mb-16"
           >
-            <div className="text-sm font-semibold text-brand-gold uppercase tracking-wider mb-4">
-              Portfolio Showcase
-            </div>
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-brand-cream">
-              Featured Properties
-            </h2>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-brand-cream mb-8">CAREER OPPORTUNITIES</h2>
+            <h3 className="text-2xl md:text-3xl font-medium text-brand-cream/90 max-w-4xl mx-auto leading-relaxed">
+              Take the next step in your real estate career by exploring opportunities at Heems Holdings and our portfolio companies.
+            </h3>
           </motion.div>
           
-          <div className="sticky top-0">
-            <div className="flex gap-6 overflow-x-auto pb-6 scrollbar-thin scrollbar-track-brand-coal scrollbar-thumb-brand-gold/30">
-              {/* TODO(Nadhir): swap gallery images */}
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: i * 0.1 }}
-                  className="flex-none w-80 h-64 relative rounded-2xl overflow-hidden ring-1 ring-brand-gold/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold group cursor-pointer"
-                  tabIndex={0}
-                >
-                  <img
-                    src={`/images/gallery-${i}.jpg`}
-                    alt={`Property ${i}`}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-coal/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </motion.div>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="text-center"
+            >
+              <Button size="lg" variant="outline" color="gold">
+                Careers at Heems Holdings Real Estate
+              </Button>
+            </motion.div>
+            
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-center"
+            >
+              <Button size="lg" variant="outline" color="gold">
+                Careers at Real Estate Portfolio Companies
+              </Button>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-24 bg-brand-navy">
-        <div className="container mx-auto px-6">
+      {/* CONTACT Section */}
+      <section id="contact" className="py-24 bg-brand-green">
+        <div className="container mx-auto px-6 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center mb-16"
           >
-            <div className="text-sm font-semibold text-brand-gold uppercase tracking-wider mb-4">
-              Common Questions
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-brand-cream mb-8">Get in Touch</h2>
+            <p className="text-xl text-brand-cream/90 max-w-3xl mx-auto mb-12">
+              Ready to explore premium real estate investment opportunities? Our dedicated team works directly with investors to provide tailored solutions.
+            </p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto mb-12">
+              <Button size="lg" variant="solid" color="gold">
+                Schedule Consultation
+              </Button>
+              <Button size="lg" variant="outline" color="navy">
+                Download Investment Guide
+              </Button>
             </div>
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-brand-cream">
-              Frequently Asked Questions
-            </h2>
-          </motion.div>
-          
-          <div className="max-w-3xl mx-auto space-y-4">
-            {[
-              {
-                question: "What types of properties does Heems Holdings focus on?",
-                answer: "We specialize in premium commercial and residential properties across logistics, hospitality, and residential sectors, with a focus on high-growth markets and sustainable returns."
-              },
-              {
-                question: "What is the minimum investment amount?",
-                answer: "Investment minimums vary by opportunity and investor type. We work with both institutional and accredited individual investors to find suitable investment levels."
-              },
-              {
-                question: "How does Heems Holdings select its investment opportunities?",
-                answer: "Our disciplined approach includes comprehensive market analysis, due diligence on property fundamentals, and evaluation of long-term growth potential in each target market."
-              },
-              {
-                question: "What kind of returns can investors expect?",
-                answer: "While past performance doesn't guarantee future results, our focus on premium properties in strategic locations has historically delivered competitive risk-adjusted returns for our investors."
-              },
-              {
-                question: "How can I get started with Heems Holdings?",
-                answer: "Contact our investment team to discuss your goals and learn about current opportunities. We'll provide detailed information about our investment process and available options."
-              }
-            ].map((faq, index) => (
-              <FAQItem key={index} question={faq.question} answer={faq.answer} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section with Texture */}
-      <section className="relative py-24 bg-brand-green overflow-hidden">
-        {/* Texture Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-green via-brand-green/95 to-brand-green/90" />
-        <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_30%_50%,rgba(198,161,91,0.1),transparent)] bg-[length:100px_100px]" />
-        
-        <div className="relative">
-          <CTA />
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="bg-brand-coal text-brand-cream py-16">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-            <div>
-              <h3 className="font-serif text-2xl font-bold mb-4 text-brand-gold">Heems Holdings LLC</h3>
-              <p className="text-brand-cream/80 leading-relaxed">
-                Premium real estate investment and development company specializing in strategic opportunities across high-growth markets.
+            
+            <div className="text-brand-cream/80">
+              <p className="mb-2">
+                <strong>Email:</strong> <a href={`mailto:${siteConfig.contactEmail}`} className="hover:text-brand-gold transition-colors">{siteConfig.contactEmail}</a>
+              </p>
+              <p>
+                <strong>Call:</strong> <a href={`tel:${siteConfig.contactPhone}`} className="hover:text-brand-gold transition-colors">{siteConfig.contactPhone}</a>
               </p>
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Footer - Blackstone Style */}
+      <footer className="bg-brand-coal text-brand-cream py-16">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
             <div>
-              <h4 className="text-lg font-semibold mb-4 text-brand-gold">Contact Information</h4>
-              <div className="space-y-2 text-brand-cream/80">
-                <p>Email: {siteConfig.contactEmail}</p>
-                <p>Phone: {siteConfig.contactPhone}</p>
-                <p>Address: {siteConfig.contact.address}</p>
+              <div className="flex items-center space-x-2 mb-4">
+                <div className="w-8 h-8 bg-brand-gold rounded-full"></div>
+                <span className="font-serif text-xl font-bold">Heems Holdings</span>
               </div>
+              <p className="text-brand-cream/70 leading-relaxed">
+                Global leader in real estate investing, focused on generating attractive returns through disciplined investment strategies.
+              </p>
             </div>
+            
             <div>
-              <h4 className="text-lg font-semibold mb-4 text-brand-gold">Investment Services</h4>
-              <ul className="text-brand-cream/80 space-y-2">
-                <li>Commercial Real Estate</li>
-                <li>Residential Development</li>
-                <li>Property Management</li>
-                <li>Asset Optimization</li>
+              <h4 className="text-lg font-semibold mb-4 text-brand-gold">Quick Links</h4>
+              <ul className="space-y-2 text-brand-cream/70">
+                <li><a href="#" className="hover:text-brand-gold transition-colors">The Firm</a></li>
+                <li><a href="#strategies" className="hover:text-brand-gold transition-colors">Our Strategies</a></li>
+                <li><a href="#insights" className="hover:text-brand-gold transition-colors">Insights</a></li>
+                <li><a href="#contact" className="hover:text-brand-gold transition-colors">Contact Us</a></li>
               </ul>
             </div>
+            
+            <div>
+              <h4 className="text-lg font-semibold mb-4 text-brand-gold">Investment Focus</h4>
+              <ul className="space-y-2 text-brand-cream/70">
+                <li>Opportunistic Real Estate</li>
+                <li>Core+ Properties</li>
+                <li>Real Estate Debt</li>
+                <li>Global Markets</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h4 className="text-lg font-semibold mb-4 text-brand-gold">Get in Touch</h4>
+              <div className="space-y-2 text-brand-cream/70">
+                <p>Email: {siteConfig.contactEmail}</p>
+                <p>Phone: {siteConfig.contactPhone}</p>
+              </div>
+            </div>
           </div>
-          <div className="border-t border-brand-gold/20 mt-12 pt-8 text-center text-brand-cream/60">
-            <p>&copy; 2024 Heems Holdings LLC. All rights reserved.</p>
+          
+          <div className="border-t border-brand-gold/20 mt-12 pt-8">
+            <div className="flex flex-col md:flex-row justify-between items-center text-brand-cream/60 text-sm">
+              <p>&copy; 2024 Heems Holdings LLC. All rights reserved.</p>
+              <div className="flex space-x-6 mt-4 md:mt-0">
+                <a href="#" className="hover:text-brand-gold transition-colors">Legal</a>
+                <a href="#" className="hover:text-brand-gold transition-colors">Privacy</a>
+                <a href="#" className="hover:text-brand-gold transition-colors">Transparency</a>
+              </div>
+            </div>
           </div>
         </div>
       </footer>
     </div>
-  )
-}
-
-// FAQ Component
-function FAQItem({ question, answer }: { question: string; answer: string }) {
-  const [isOpen, setIsOpen] = useState(false)
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="border border-brand-gold/20 rounded-2xl overflow-hidden"
-    >
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-6 py-4 text-left bg-brand-navy hover:bg-brand-navy/80 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
-      >
-        <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-brand-cream text-lg">{question}</h3>
-          <div className={`text-brand-gold text-2xl transition-transform duration-300 ${isOpen ? 'rotate-45' : ''}`}>
-            +
-          </div>
-        </div>
-      </button>
-      <motion.div
-        initial={false}
-        animate={{ height: isOpen ? 'auto' : 0 }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="overflow-hidden"
-      >
-        <div className="px-6 py-4 bg-brand-navy/50 text-brand-cream/80 leading-relaxed">
-          {answer}
-        </div>
-      </motion.div>
-    </motion.div>
   )
 }
